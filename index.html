@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veux-tu être ma Valentine ?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="heart-animation">❤️</div>
+        <h1 class="title"><span id="custom-name">Mon amour</span>, veux-tu être ma Valentine ?</h1>
+        <p class="subtitle">Tu es la personne la plus merveilleuse que je connaisse...</p>
+        
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-label">Tentatives "Non":</span>
+                <span id="attempt-count" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Temps de réflexion:</span>
+                <span id="timer" class="stat-value">0s</span>
+            </div>
+        </div>
+        
+        <div class="name-input-container">
+            <input type="text" id="name-input" placeholder="Entre ton prénom..." maxlength="20">
+            <button id="name-btn" class="btn-name">Personnaliser</button>
+        </div>
+        
+        <div class="buttons-container">
+            <button id="btn-yes" class="btn btn-yes">Oui</button>
+            <button id="btn-no" class="btn btn-no">Non</button>
+        </div>
+        
+        <div id="success-message" class="hidden">
+            <h2>🎉 Oui ! Je suis si heureux ! 🎉</h2>
+            <p>Nous allons passer une magnifique Saint-Valentine ensemble !</p>
+            <div class="final-stats">
+                <p>⏱️ Tu as mis <span id="final-time">0</span> secondes pour décider !</p>
+                <p>🎯 Tu as essayé <span id="final-attempts">0</span> fois de dire non !</p>
+            </div>
+            <div class="hearts">❤️ 💕 💖 💗 💓 💝</div>
+            <div id="quote-container" class="quote-container">
+                <p class="quote"></p>
+            </div>
+            
+            <div class="share-container">
+                <button id="share-btn" class="btn-share">📱 Partager la bonne nouvelle</button>
+            </div>
+            
+            <div class="secret-messages">
+                <p class="secret-message" style="animation-delay: 1s">💝 Tu me rends le plus heureux des hommes</p>
+                <p class="secret-message" style="animation-delay: 2s">🌹 Chaque moment avec toi est un trésor</p>
+                <p class="secret-message" style="animation-delay: 3s">✨ Tu es mon soleil, mes étoiles, ma lune</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
