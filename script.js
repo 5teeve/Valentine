@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameBtn = document.getElementById('name-btn');
     const customName = document.getElementById('custom-name');
     const shareBtn = document.getElementById('share-btn');
+    const quotesBtn = document.getElementById('quotes-btn');
     const quoteContainer = document.getElementById('quote-container');
     const quoteElement = quoteContainer.querySelector('.quote');
     const quoteBtn = document.getElementById('quote-btn');
@@ -364,6 +365,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             });
         }
+    });
+    
+    // Accès aux citations spéciales
+    quotesBtn.addEventListener('click', function() {
+        window.location.href = 'quotes.html';
     });
     
     function showRandomQuote() {

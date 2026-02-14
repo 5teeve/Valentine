@@ -129,6 +129,11 @@
     opacity: 0;
     transform: scale(0.9);
     transition: all 0.8s ease 0.3s;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
 }
 
 #main-content.show {
@@ -148,9 +153,10 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    align-items: flex-start;
+    overflow-x: hidden;
     position: relative;
+    padding: 20px 0;
 }
 
 body::before {
@@ -178,9 +184,11 @@ body::before {
     border-radius: 30px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 500px;
+    width: 100%;
     position: relative;
     z-index: 10;
     backdrop-filter: blur(10px);
+    margin: 20px auto;
 }
 
 .heart-animation {
@@ -286,6 +294,8 @@ body::before {
 
 #success-message {
     animation: fadeIn 0.5s ease;
+    max-height: none;
+    overflow: visible;
 }
 
 @keyframes fadeIn {
@@ -423,12 +433,32 @@ body::before {
     font-weight: bold;
     font-size: 1rem;
     transition: all 0.3s ease;
+    margin: 5px;
 }
 
 .btn-share:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
     background: linear-gradient(45deg, #44a3aa, #4ecdc4);
+}
+
+.btn-quotes {
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #ff006e, #8338ec);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.btn-quotes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 0, 110, 0.4);
+    background: linear-gradient(45deg, #8338ec, #ff006e);
 }
 
 .secret-messages {
@@ -501,9 +531,18 @@ body::before {
 }
 
 @media (max-width: 600px) {
+    body {
+        padding: 10px 0;
+    }
+    
     .container {
-        margin: 20px;
+        margin: 10px auto;
         padding: 40px 20px;
+        max-width: 95%;
+    }
+    
+    #main-content {
+        padding: 10px 0;
     }
     
     .title {
