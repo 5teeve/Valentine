@@ -1,3 +1,141 @@
+/* Écran d'accueil mystérieux */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: all 0.8s ease;
+}
+
+.welcome-screen.hidden {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+
+.welcome-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 60px 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.8s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mystery-icon {
+    font-size: 4rem;
+    animation: bounce 2s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.welcome-title {
+    color: #764ba2;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-subtitle {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.welcome-input-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+#welcome-name-input {
+    padding: 15px 20px;
+    border: 2px solid #764ba2;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    min-width: 200px;
+}
+
+#welcome-name-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 15px rgba(118, 75, 162, 0.3);
+    transform: scale(1.05);
+}
+
+.btn-welcome {
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #764ba2, #667eea);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-welcome:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.btn-welcome:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.welcome-hint {
+    color: #764ba2;
+    font-style: italic;
+    font-size: 1rem;
+    opacity: 0.8;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Contenu principal caché au début */
+#main-content {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease 0.3s;
+}
+
+#main-content.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
 * {
     margin: 0;
     padding: 0;

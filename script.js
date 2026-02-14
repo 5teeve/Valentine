@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Éléments de l'écran d'accueil
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const welcomeNameInput = document.getElementById('welcome-name-input');
+    const welcomeBtn = document.getElementById('welcome-btn');
+    const mainContent = document.getElementById('main-content');
+    
+    // Éléments du contenu principal
     const btnNo = document.getElementById('btn-no');
     const btnYes = document.getElementById('btn-yes');
     const container = document.querySelector('.container');
@@ -24,6 +31,52 @@ document.addEventListener('DOMContentLoaded', function() {
     let timerInterval;
     let usedQuotes = [];
     let currentQuoteIndex = -1;
+    let gameStarted = false;
+    
+    // Gestion de l'écran d'accueil
+    welcomeBtn.addEventListener('click', function() {
+        const name = welcomeNameInput.value.trim();
+        if (name.length < 2) {
+            welcomeNameInput.style.borderColor = '#ff4444';
+            welcomeNameInput.placeholder = 'Entre au moins 2 lettres...';
+            setTimeout(() => {
+                welcomeNameInput.style.borderColor = '#764ba2';
+                welcomeNameInput.placeholder = 'Ton prénom...';
+            }, 2000);
+            return;
+        }
+        
+        // Personnaliser avec le nom
+        customName.textContent = name;
+        
+        // Transition vers le contenu principal
+        welcomeScreen.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        mainContent.classList.add('show');
+        
+        // Démarrer le jeu
+        setTimeout(() => {
+            startGame();
+        }, 800);
+    });
+    
+    welcomeNameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            welcomeBtn.click();
+        }
+    });
+    
+    welcomeNameInput.addEventListener('input', function() {
+        welcomeBtn.disabled = this.value.trim().length < 2;
+    });
+    
+    // Désactiver le bouton au début
+    welcomeBtn.disabled = true;
+    
+    function startGame() {
+        gameStarted = true;
+        startTimer();
+    }
     
     // Citations humoristiques aléatoires
     const funnyQuotes = [
@@ -35,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "Is your name Google? Because you have everything I've been searching for",
         "Do you believe in love at first sight, or should I walk by again?",
         "Excuse me, I think you have something in your eye... oh wait, it's just a sparkle",
-        "If kisses were snowflakes, I'd send you a blizzard",
         "Are you a parking ticket? Because you've got 'fine' written all over you",
         "Life is short, so let's make it long... in bed",
         "Are you a volcano? Because I lava you and want to erupt together",
@@ -76,13 +128,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Démarrer le chronomètre
     function startTimer() {
+        if (!gameStarted) return;
         timerInterval = setInterval(() => {
             const elapsed = Math.floor((Date.now() - startTime) / 1000);
             timer.textContent = elapsed + 's';
         }, 1000);
     }
     
-    startTimer();
+    // Ne pas démarrer le timer automatiquement
+    // startTimer();
     
     const funnyMessages = [
         "Sûre ? 😊",
