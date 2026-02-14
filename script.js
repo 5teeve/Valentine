@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Éléments de l'écran d'accueil
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const welcomeNameInput = document.getElementById('welcome-name-input');
+    const welcomeBtn = document.getElementById('welcome-btn');
+    const mainContent = document.getElementById('main-content');
+    
+    // Éléments du contenu principal
     const btnNo = document.getElementById('btn-no');
     const btnYes = document.getElementById('btn-yes');
     const container = document.querySelector('.container');
@@ -14,13 +21,63 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameBtn = document.getElementById('name-btn');
     const customName = document.getElementById('custom-name');
     const shareBtn = document.getElementById('share-btn');
+    const quotesBtn = document.getElementById('quotes-btn');
     const quoteContainer = document.getElementById('quote-container');
     const quoteElement = quoteContainer.querySelector('.quote');
+    const quoteBtn = document.getElementById('quote-btn');
     
     let noClickCount = 0;
     let isMoving = false;
     let startTime = Date.now();
     let timerInterval;
+    let usedQuotes = [];
+    let currentQuoteIndex = -1;
+    let gameStarted = false;
+    
+    // Gestion de l'écran d'accueil
+    welcomeBtn.addEventListener('click', function() {
+        const name = welcomeNameInput.value.trim();
+        if (name.length < 2) {
+            welcomeNameInput.style.borderColor = '#ff4444';
+            welcomeNameInput.placeholder = 'Entre au moins 2 lettres...';
+            setTimeout(() => {
+                welcomeNameInput.style.borderColor = '#764ba2';
+                welcomeNameInput.placeholder = 'Ton prénom...';
+            }, 2000);
+            return;
+        }
+        
+        // Personnaliser avec le nom
+        customName.textContent = name;
+        
+        // Transition vers le contenu principal
+        welcomeScreen.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        mainContent.classList.add('show');
+        
+        // Démarrer le jeu
+        setTimeout(() => {
+            startGame();
+        }, 800);
+    });
+    
+    welcomeNameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            welcomeBtn.click();
+        }
+    });
+    
+    welcomeNameInput.addEventListener('input', function() {
+        welcomeBtn.disabled = this.value.trim().length < 2;
+    });
+    
+    // Désactiver le bouton au début
+    welcomeBtn.disabled = true;
+    
+    function startGame() {
+        gameStarted = true;
+        startTimer();
+    }
     
     // Citations humoristiques aléatoires
     const funnyQuotes = [
@@ -32,19 +89,55 @@ document.addEventListener('DOMContentLoaded', function() {
         "Is your name Google? Because you have everything I've been searching for",
         "Do you believe in love at first sight, or should I walk by again?",
         "Excuse me, I think you have something in your eye... oh wait, it's just a sparkle",
-        "If kisses were snowflakes, I'd send you a blizzard",
-        "Are you a parking ticket? Because you've got 'fine' written all over you"
+        "Are you a parking ticket? Because you've got 'fine' written all over you",
+        "Life is short, so let's make it long... in bed",
+        "Are you a volcano? Because I lava you and want to erupt together",
+        "Is your name Wi-Fi? Because I'm feeling a strong connection",
+        "Are you a camera? Every time I look at you, I smile",
+        "Do you have a name, or can I call you mine tonight?",
+        "Are you a light switch? Because you turn me on",
+        "Is your dad a thief? Someone stole the stars and put them in your eyes",
+        "Are you a broom? Because you swept me off my feet",
+        "Do you like chocolate? Because you're sweet and I want to eat you",
+        "Are you a cat? Because I want to pet you all night long",
+        "Is your body a temple? Because I want to worship it",
+        "Are you a firework? Because you're explosive and I want to light you up",
+        "Do you sleep on your stomach? No? Can I?",
+        "Are you a dictionary? Because you add meaning to my life",
+        "Is your name Chapstick? Because you're da balm",
+        "Are you a triangle? Because you're acute-y",
+        "Do you have a Band-Aid? I just scraped my knee falling for you",
+        "Are you a time traveler? Because I see you in my future",
+        "Is your name Netflix? Because I could watch you for hours",
+        "Are you a baker? Because you've got nice buns",
+        "Do you like vegetables? Because I want to toss your salad",
+        "Are you a pirate? Because I want your booty",
+        "Is your name Google Maps? Because you've got everything I'm looking for",
+        "Are you a candle? Because I want to blow you",
+        "Do you work at Subway? Because you're giving me a footlong",
+        "Are you a snowstorm? Because I'm expecting 8-10 inches tonight",
+        "Is your name Cinderella? Because I can see those clothes disappearing at midnight",
+        "Are you a blanket? Because I want to wrap you around me",
+        "Do you have a mirror in your pocket? Because I can see myself in your pants",
+        "Are you a plumber? Because you're making my pipe leak",
+        "Is your name Easter? Because I want to hunt for your eggs",
+        "Are you a mechanic? Because I want to check your oil",
+        "Do you like yoga? Because I want to bend you like a pretzel",
+        "Are you a star? Because you're lighting up my night",
+        "Is your name Amazon? Because you deliver exactly what I want"
     ];
     
     // Démarrer le chronomètre
     function startTimer() {
+        if (!gameStarted) return;
         timerInterval = setInterval(() => {
             const elapsed = Math.floor((Date.now() - startTime) / 1000);
             timer.textContent = elapsed + 's';
         }, 1000);
     }
     
-    startTimer();
+    // Ne pas démarrer le timer automatiquement
+    // startTimer();
     
     const funnyMessages = [
         "Sûre ? 😊",
@@ -274,31 +367,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Accès aux citations spéciales
+    quotesBtn.addEventListener('click', function() {
+        window.location.href = 'quotes.html';
+    });
+    
     function showRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * funnyQuotes.length);
-        const selectedQuote = funnyQuotes[randomIndex];
+        let availableQuotes = funnyQuotes.filter((quote, index) => !usedQuotes.includes(index));
         
-        quoteElement.textContent = `"${selectedQuote}"`;
+        // Si toutes les citations ont été utilisées, réinitialiser
+        if (availableQuotes.length === 0) {
+            usedQuotes = [];
+            availableQuotes = [...funnyQuotes];
+        }
+        
+        const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+        const selectedQuoteIndex = funnyQuotes.indexOf(availableQuotes[randomIndex]);
+        const selectedQuote = funnyQuotes[selectedQuoteIndex];
+        
+        usedQuotes.push(selectedQuoteIndex);
+        currentQuoteIndex = selectedQuoteIndex;
+        
         quoteElement.style.animation = 'none';
+        quoteElement.style.opacity = '0';
         
         setTimeout(() => {
+            quoteElement.textContent = `"${selectedQuote}"`;
             quoteElement.style.animation = 'fadeIn 1s ease forwards';
-        }, 100);
-        
-        // Changer de citation toutes les 5 secondes
-        setInterval(() => {
-            const newIndex = Math.floor(Math.random() * funnyQuotes.length);
-            const newQuote = funnyQuotes[newIndex];
-            
-            quoteElement.style.animation = 'none';
-            quoteElement.style.opacity = '0';
-            
-            setTimeout(() => {
-                quoteElement.textContent = `"${newQuote}"`;
-                quoteElement.style.animation = 'fadeIn 1s ease forwards';
-            }, 300);
-        }, 5000);
+        }, 300);
     }
+    
+    // Écouteur pour le bouton de citation
+    quoteBtn.addEventListener('click', showRandomQuote);
     
     function createCustomParticles() {
         const particles = ['❤️', '🌹', '💕', '✨', '🌟', '💖', '🎀', '🦋'];

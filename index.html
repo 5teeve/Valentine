@@ -7,7 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-container">
+            <div class="mystery-icon">🎁</div>
+            <h1 class="welcome-title">Une surprise t'attend...</h1>
+            <p class="welcome-subtitle">Entre ton prénom pour découvrir ce que j'ai préparé pour toi</p>
+            
+            <div class="welcome-input-container">
+                <input type="text" id="welcome-name-input" placeholder="Ton prénom..." maxlength="20" autocomplete="off">
+                <button id="welcome-btn" class="btn-welcome">Découvrir</button>
+            </div>
+            
+            <p class="welcome-hint">✨ Quelque chose de spécial est juste pour toi...</p>
+        </div>
+    </div>
+    
+    <div id="main-content" class="hidden">
+        <div class="container">
         <div class="heart-animation">❤️</div>
         <h1 class="title"><span id="custom-name">Mon amour</span>, veux-tu être ma Valentine ?</h1>
         <p class="subtitle">Tu es la personne la plus merveilleuse que je connaisse...</p>
@@ -23,7 +39,7 @@
             </div>
         </div>
         
-        <div class="name-input-container">
+        <div class="name-input-container" style="display: none;">
             <input type="text" id="name-input" placeholder="Entre ton prénom..." maxlength="20">
             <button id="name-btn" class="btn-name">Personnaliser</button>
         </div>
@@ -43,10 +59,12 @@
             <div class="hearts">❤️ 💕 💖 💗 💓 💝</div>
             <div id="quote-container" class="quote-container">
                 <p class="quote"></p>
+                <button id="quote-btn" class="btn-quote">🎭 Autre citation</button>
             </div>
             
             <div class="share-container">
                 <button id="share-btn" class="btn-share">📱 Partager la bonne nouvelle</button>
+                <button id="quotes-btn" class="btn-quotes">🔞 Citations spéciales</button>
             </div>
             
             <div class="secret-messages">
@@ -54,6 +72,7 @@
                 <p class="secret-message" style="animation-delay: 2s">🌹 Chaque moment avec toi est un trésor</p>
                 <p class="secret-message" style="animation-delay: 3s">✨ Tu es mon soleil, mes étoiles, ma lune</p>
             </div>
+        </div>
         </div>
     </div>
     
