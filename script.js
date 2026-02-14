@@ -16,11 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const shareBtn = document.getElementById('share-btn');
     const quoteContainer = document.getElementById('quote-container');
     const quoteElement = quoteContainer.querySelector('.quote');
+    const quoteBtn = document.getElementById('quote-btn');
     
     let noClickCount = 0;
     let isMoving = false;
     let startTime = Date.now();
     let timerInterval;
+    let usedQuotes = [];
+    let currentQuoteIndex = -1;
     
     // Citations humoristiques aléatoires
     const funnyQuotes = [
@@ -275,30 +278,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function showRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * funnyQuotes.length);
-        const selectedQuote = funnyQuotes[randomIndex];
+        let availableQuotes = funnyQuotes.filter((quote, index) => !usedQuotes.includes(index));
         
-        quoteElement.textContent = `"${selectedQuote}"`;
+        // Si toutes les citations ont été utilisées, réinitialiser
+        if (availableQuotes.length === 0) {
+            usedQuotes = [];
+            availableQuotes = [...funnyQuotes];
+        }
+        
+        const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+        const selectedQuoteIndex = funnyQuotes.indexOf(availableQuotes[randomIndex]);
+        const selectedQuote = funnyQuotes[selectedQuoteIndex];
+        
+        usedQuotes.push(selectedQuoteIndex);
+        currentQuoteIndex = selectedQuoteIndex;
+        
         quoteElement.style.animation = 'none';
+        quoteElement.style.opacity = '0';
         
         setTimeout(() => {
+            quoteElement.textContent = `"${selectedQuote}"`;
             quoteElement.style.animation = 'fadeIn 1s ease forwards';
-        }, 100);
-        
-        // Changer de citation toutes les 5 secondes
-        setInterval(() => {
-            const newIndex = Math.floor(Math.random() * funnyQuotes.length);
-            const newQuote = funnyQuotes[newIndex];
-            
-            quoteElement.style.animation = 'none';
-            quoteElement.style.opacity = '0';
-            
-            setTimeout(() => {
-                quoteElement.textContent = `"${newQuote}"`;
-                quoteElement.style.animation = 'fadeIn 1s ease forwards';
-            }, 300);
-        }, 5000);
+        }, 300);
     }
+    
+    // Écouteur pour le bouton de citation
+    quoteBtn.addEventListener('click', showRandomQuote);
     
     function createCustomParticles() {
         const particles = ['❤️', '🌹', '💕', '✨', '🌟', '💖', '🎀', '🦋'];
